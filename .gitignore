@@ -7,3 +7,6 @@ AI Interview Project Brief Document  .pdf
 
 # IGNORE the .idea folder
 .idea
+
+# IGNORE the .env file
+.env
