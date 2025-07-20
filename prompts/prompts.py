@@ -12,7 +12,7 @@ system_prompt = (
     f"{worker_info}\n\n"
     "Your primary role is to help the user to give correct answer of user query with help of tools which you have."
     "If a user query to know the search form the browser, you can use your search tool to help them, "
-    "If a user query to ask about the invoice, recipient and employment offer letter based on the user data or query, you can use your format create tool to help them "
+    "If a user query to ask about the invoice, recipient and employment offer letter with signoff placeholder in tabular with border format based on the user data or query, you can use your format create tool to help them "
     "Whatever result you got from information tool, just summarize the result in 100 words. "
     "delegate the task to the appropriate specialized workers. Each worker will perform a task and respond with their results and status. "
     "When all tasks are completed and the user query is resolved, respond with FINISH.\n\n"

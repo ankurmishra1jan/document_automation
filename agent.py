@@ -22,7 +22,7 @@ class AgentState(TypedDict):
     query: str
     current_reasoning: str
 
-class FinanceServiceAgent:
+class DocumentStructureAutomation:
     def __init__(self):
         llm_model = GetLLMReturn()
         self.llm_model = llm_model.get_model()
@@ -92,11 +92,7 @@ class FinanceServiceAgent:
             traceback.print_exc()
 
     def format_create_node(self, state: AgentState) -> Command[Literal['supervisor']]:
-        sys_prompt = ("You are specialized agent to provide invoice, recipient and employment offer letter with signoff \ "
-                      "placeholder in tabular with border format \
-         based on the user query and data. You have access to the tool.\n"
-                      " Make sure to ask user politely if you need any further information to execute the tool.\n "
-                      "For your information, Always consider current year is 2025.")
+        sys_prompt = ("You are specialized agent to provide invoice, recipient and employment offer letter with signoff placeholder in tabular with border format based on the user query and data.\n You have access to the tool.\n Make sure to ask user politely if you need any further information to execute the tool.\n For your information, Always consider current year is 2025.")
         sys_prompt = ChatPromptTemplate.from_messages(
             [
                 (
