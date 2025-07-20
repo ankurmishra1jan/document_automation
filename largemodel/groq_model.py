@@ -20,5 +20,5 @@ class GetLLMReturn:
 if __name__ == "__main__":
     llm_model_instance = GetLLMReturn()
     model = llm_model_instance.get_model()
-    response = model.invoke("hi")
+    response = model.invoke("please create one invoice of 4 product which have 2 mangos, 3 apples, 1 orange, 2 bananas with 20,40,35 and 50 corresponding prices with tabular format as well as signoff placeholder.")
     print(response)

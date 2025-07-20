@@ -7,12 +7,12 @@ from langgraph.graph import START, StateGraph, END
 from langgraph.prebuilt import create_react_agent
 from langchain_core.messages import HumanMessage, AIMessage
 from prompts.prompts import system_prompt
-from tools.tools import latest_news_based_on_query
+from tools.tools import latest_news_based_on_query, format_create, format_creation
 from largemodel.groq_model import GetLLMReturn
 import traceback
 
 class Router(TypedDict):
-    next: Literal["information_node", "FINISH"]
+    next: Literal["information_node", "format_creation", "FINISH"]
     reasoning: str
 
 class AgentState(TypedDict):
@@ -37,7 +37,8 @@ class DocumentStructureAutomation:
         if len(state['messages']) == 1:
             query = state['messages'][0].content
 
-        response = self.llm_model.with_structured_output(Router).invoke(messages)
+        llm_model_with_tools = self.llm_model.bind_tools([format_creation])
+        response = llm_model_with_tools.with_structured_output(Router).invoke(messages)
         goto = response["next"]
 
         if goto == "FINISH":
@@ -56,7 +57,7 @@ class DocumentStructureAutomation:
 
     def information_node(self, state: AgentState) -> Command[Literal['supervisor']]:
         try:
-            sys_prompt = "You are specialized agent to provide information related based on the user query. You have access to the tool.\n Make sure to ask user politely if you need any further information to execute the tool.\n For your information, Always consider current year is 2024."
+            sys_prompt = "You are specialized agent to provide information related based on the user query. You have access to the tool.\n Make sure to ask user politely if you need any further information to execute the tool.\n For your information, Always consider current year is 2025."
             sys_prompt = ChatPromptTemplate.from_messages(
                 [
                     (
@@ -111,7 +112,8 @@ class DocumentStructureAutomation:
         trimmed_state = dict(state)
         trimmed_state["messages"] = state["messages"][-MAX_MESSAGES:]
 
-        information_agent = create_react_agent(model=self.llm_model, tools=[latest_news_based_on_query],
+
+        information_agent = create_react_agent(model=self.llm_model, tools=[format_create, format_creation],
                                                prompt=sys_prompt)
 
         result = information_agent.invoke(trimmed_state)

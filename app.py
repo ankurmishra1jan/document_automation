@@ -31,6 +31,6 @@ def execute_agent(user_input: UserQuery):
         "query": "",
         "current_reasoning": "",
     }
-
-    response = app_graph.invoke(query_data)
+    config_var = {"recursion_limit": 50}
+    response = app_graph.invoke(query_data, config=config_var)
     return {"messages": response["messages"]}

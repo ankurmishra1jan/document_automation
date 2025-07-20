@@ -1,6 +1,8 @@
 members_dict = {
-    "invoice_node": "specialized agent to provide billing related invoice format based on user data and query with the help of your tools."
+    "information_node": "specialized agent to provide latest news from the browser based on user query or data"
 }
+
+# "format_creation": "specialized agent to provide invoice, recipient and employment offer letter with signoff placeholder in tabular with border format based on user data and query.",
 
 options = list(members_dict.keys()) + ["FINISH"]
 
