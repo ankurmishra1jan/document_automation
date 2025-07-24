@@ -8,10 +8,10 @@ os.environ["GROQ_API_KEY"] = GROQ_API_KEY
 
 class GetLLMReturn:
 
-    def __init__(self, model="Gemma2-9b-It", temp=0.2):
+    def __init__(self, model="gemma2-9b-it", temp=0.2):
         self.temperature = temp
         self.model = model
-        self.groq_model = ChatGroq(model_name=self.model, temperature=self.temperature)
+        self.groq_model = ChatGroq(model_name=self.model, temperature=self.temperature, max_tokens=4000)
 
     def get_model(self):
         return self.groq_model

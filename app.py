@@ -10,7 +10,6 @@ app = FastAPI()
 
 # Define Pydantic model to accept request body
 class UserQuery(BaseModel):
-    id_number: int
     messages: str
 
 
@@ -26,11 +25,10 @@ def execute_agent(user_input: UserQuery):
     ]
     query_data = {
         "messages": input_data,
-        "id_number": user_input.id_number,
         "next": "",
         "query": "",
         "current_reasoning": "",
     }
-    config_var = {"recursion_limit": 50}
+    config_var = {"recursion_limit": 25}
     response = app_graph.invoke(query_data, config=config_var)
     return {"messages": response["messages"]}

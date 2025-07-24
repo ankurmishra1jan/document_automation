@@ -3,13 +3,12 @@ from pydantic import BaseModel
 
 class InvoiceItem(BaseModel):
     description: str
-    quantity: str
-    unit_price: str
-    total: str
+    quantity: int
+    unit_price: float
+    total: float
 
 class FormatCreationArgs(BaseModel):
     invoice_type: str
-    recipient_name: str
     invoice_number: str
     invoice_date: str
     due_date: str
